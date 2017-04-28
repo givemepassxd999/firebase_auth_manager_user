@@ -7,7 +7,6 @@
     tools:context=".MainActivity">
     <TextView
         android:text="@string/login_success"
-        android:layout_centerInParent="true"
         android:id="@+id/main_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -15,7 +14,17 @@
         android:layout_below="@id/main_info"
         android:text="@string/logout"
         android:id="@+id/logout"
-        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:layout_below="@id/logout"
+        android:id="@+id/get_profile"
+        android:text="取得 profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_below="@id/get_profile"
+        android:id="@+id/profile_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </RelativeLayout>
