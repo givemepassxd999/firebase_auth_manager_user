@@ -9,4 +9,9 @@
     <string name="register_success">註冊成功</string>
     <string name="logout">登出</string>
     <string name="login_success">登入成功</string>
+    <string name="update_data">更新資料</string>
+    <string name="get_profile">取得 profile</string>
+    <string name="display_name">名字</string>
+    <string name="photo_uri">圖片網址</string>
+    <string name="ok">確定</string>
 </resources>
