@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private Button logout;
     private Button updateData;
     private FirebaseUser user;
+    private Button changeEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,8 +97,7 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
-                                            Toast.makeText(MainActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
-                                            user.reload();
+                                            Toast.makeText(MainActivity.this, "Profile 修改成功", Toast.LENGTH_SHORT).show();
                                         } else{
                                             Toast.makeText(MainActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
                                         }
@@ -107,6 +107,49 @@ public class MainActivity extends AppCompatActivity {
                     })
 
                     .show();
+            }
+        });
+        changeEmail = (Button) findViewById(R.id.change_email);
+        changeEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                user.updateEmail("givemepassxd999@gamil.com")
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(MainActivity.this, "Email 修改成功", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(MainActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+//                AuthCredential credential = EmailAuthProvider
+//                .getCredential("abc@gamil.com", "qazxsw");
+//
+//                // Prompt the user to re-provide their sign-in credentials
+//                user.reauthenticate(credential)
+//                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        if(task.isSuccessful()) {
+//                            user.updateEmail("def@gamil.com")
+//                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull Task<Void> task) {
+//                                        if (task.isSuccessful()) {
+//                                            Toast.makeText(MainActivity.this, "Email 修改成功", Toast.LENGTH_SHORT).show();
+//                                        } else {
+//                                            Toast.makeText(MainActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
+//                                        }
+//                                    }
+//                                });
+//                        } else{
+//                            Toast.makeText(MainActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+
             }
         });
     }

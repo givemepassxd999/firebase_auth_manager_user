@@ -27,6 +27,12 @@
             android:layout_height="wrap_content" />
         <Button
             android:layout_below="@id/update_data"
+            android:id="@+id/change_email"
+            android:text="@string/change_email"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_below="@id/change_email"
             android:id="@+id/get_profile"
             android:text="@string/get_profile"
             android:layout_width="100dp"

@@ -14,4 +14,5 @@
     <string name="display_name">名字</string>
     <string name="photo_uri">圖片網址</string>
     <string name="ok">確定</string>
+    <string name="change_email">修改Email</string>
 </resources>
