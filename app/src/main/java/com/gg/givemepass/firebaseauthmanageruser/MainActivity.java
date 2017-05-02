@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private Button updateData;
     private FirebaseUser user;
     private Button changeEmail;
+    private Button verificationEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,6 +135,23 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+            }
+        });
+        verificationEmail = (Button) findViewById(R.id.verification_email);
+        verificationEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                user.sendEmailVerification()
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(MainActivity.this, "Email 驗證成功", Toast.LENGTH_SHORT).show();
+                            } else{
+                                Toast.makeText(MainActivity.this, "Email 驗證"+task.getException().toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
             }
         });
     }
