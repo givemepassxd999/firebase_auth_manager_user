@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -113,42 +115,24 @@ public class MainActivity extends AppCompatActivity {
         changeEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user.updateEmail("givemepassxd999@gamil.com")
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(MainActivity.this, "Email 修改成功", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(MainActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
+                AuthCredential credential = EmailAuthProvider.getCredential("abc@gamil.com", "qazxsw");
+                user.reauthenticate(credential)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        user.updateEmail("def@gmail.com")
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(MainActivity.this, "Email 修改成功", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(MainActivity.this, "修改email:"+task.getException().toString(), Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        }
-                    });
-//                AuthCredential credential = EmailAuthProvider
-//                .getCredential("abc@gamil.com", "qazxsw");
-//
-//                // Prompt the user to re-provide their sign-in credentials
-//                user.reauthenticate(credential)
-//                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        if(task.isSuccessful()) {
-//                            user.updateEmail("def@gamil.com")
-//                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<Void> task) {
-//                                        if (task.isSuccessful()) {
-//                                            Toast.makeText(MainActivity.this, "Email 修改成功", Toast.LENGTH_SHORT).show();
-//                                        } else {
-//                                            Toast.makeText(MainActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
-//                                        }
-//                                    }
-//                                });
-//                        } else{
-//                            Toast.makeText(MainActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
+                        });
+                    }
+                });
 
             }
         });
