@@ -39,6 +39,25 @@
             android:layout_height="wrap_content" />
         <Button
             android:layout_below="@id/verification_email"
+            android:id="@+id/change_pw"
+            android:text="@string/change_pw"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_below="@id/change_pw"
+            android:text="重新認證"
+            android:id="@+id/re_auth"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_below="@id/re_auth"
+            android:id="@+id/del_user"
+            android:text="刪除使用者"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:layout_below="@id/del_user"
             android:id="@+id/get_profile"
             android:text="@string/get_profile"
             android:layout_width="100dp"

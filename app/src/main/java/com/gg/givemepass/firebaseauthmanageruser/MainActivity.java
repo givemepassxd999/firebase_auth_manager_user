@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser user;
     private Button changeEmail;
     private Button verificationEmail;
+    private Button changePassword;
+    private Button reAuth;
+    private Button delUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,13 +105,12 @@ public class MainActivity extends AppCompatActivity {
                                         if (task.isSuccessful()) {
                                             Toast.makeText(MainActivity.this, "Profile 修改成功", Toast.LENGTH_SHORT).show();
                                         } else{
-                                            Toast.makeText(MainActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(MainActivity.this, "Profile 修改:" + task.getException().toString(), Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
                         }
                     })
-
                     .show();
             }
         });
@@ -148,10 +150,77 @@ public class MainActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 Toast.makeText(MainActivity.this, "Email 驗證成功", Toast.LENGTH_SHORT).show();
                             } else{
-                                Toast.makeText(MainActivity.this, "Email 驗證"+task.getException().toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "Email 驗證:"+task.getException().toString(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
+            }
+        });
+        changePassword = (Button) findViewById(R.id.change_pw);
+        changePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final View item = LayoutInflater.from(MainActivity.this).inflate(R.layout.change_pw_layout, null);
+                new AlertDialog.Builder(MainActivity.this)
+                    .setView(item)
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            EditText displayName = (EditText) item.findViewById(R.id.new_pw);
+                            String newPassword = displayName.getText().toString();
+                            user.updatePassword(newPassword)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(MainActivity.this, "Password 修改成功", Toast.LENGTH_SHORT).show();
+                                        } else{
+                                            Toast.makeText(MainActivity.this, "password 修改:"+task.getException().toString(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                        }
+                    })
+                    .show();
+
+            }
+        });
+        reAuth = (Button) findViewById(R.id.re_auth);
+        reAuth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AuthCredential credential = EmailAuthProvider.getCredential("def@gamil.com", "wsxzaq");
+                user.reauthenticate(credential)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(MainActivity.this, "重新認證成功", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+            }
+        });
+        delUser = (Button) findViewById(R.id.del_user);
+        delUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            AuthCredential credential = EmailAuthProvider.getCredential("def@gamil.com", "wsxzaq");
+            user.reauthenticate(credential)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(MainActivity.this, "User刪除成功", Toast.LENGTH_SHORT).show();
+                                } else{
+                                    Toast.makeText(MainActivity.this, "User刪除:"+task.getException().toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                });
+
             }
         });
     }
