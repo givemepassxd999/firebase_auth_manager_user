@@ -4,8 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +11,13 @@ import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
+import com.sun.org.apache.xml.internal.security.algorithms.JCEMapper.getProviderId
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.change_pw_layout.*
+import kotlinx.android.synthetic.main.update_data_layout.*
+import sun.jvm.hotspot.utilities.IntArray
+
+
 
 class MainActivity : AppCompatActivity() {
     private var user: FirebaseUser? = null
@@ -39,20 +43,11 @@ class MainActivity : AppCompatActivity() {
         get_profile.setOnClickListener {
             if (user != null) {
                 val sb = StringBuilder()
-                sb.append("display name:")
-                sb.append(user?.displayName)
-                sb.append("\n")
-                sb.append("email:")
-                sb.append(user?.email)
-                sb.append("\n")
-                sb.append("photo url:")
-                sb.append(user?.photoUrl)
-                sb.append("\n")
-                sb.append("is email verified:")
-                sb.append(user?.isEmailVerified)
-                sb.append("\n")
-                sb.append("uid:")
-                sb.append(user?.uid)
+                sb.append("display name:${user?.displayName}\n")
+                sb.append("email:${user?.email}\n")
+                sb.append("photo url:${user?.photoUrl}\n")
+                sb.append("is email verified:${user?.isEmailVerified}\n")
+                sb.append("uid:${user?.uid}")
                 profile_info.text = sb.toString()
             }
         }
@@ -61,9 +56,8 @@ class MainActivity : AppCompatActivity() {
             AlertDialog.Builder(this@MainActivity)
                     .setView(item)
                     .setPositiveButton(R.string.ok) { _, _ ->
-                        val displayName = item.findViewById<View>(R.id.display_name_edit) as EditText
                         val profileUpdates = UserProfileChangeRequest.Builder()
-                                .setDisplayName(displayName.text.toString())
+                                .setDisplayName(display_name_edit.text.toString())
                                 .setPhotoUri(Uri.parse("https://github.com/givemepassxd999/free_img/blob/master/01.jpg?raw=true"))
                                 .build()
 
@@ -81,7 +75,7 @@ class MainActivity : AppCompatActivity() {
         change_email.setOnClickListener {
             val credential = EmailAuthProvider.getCredential("abc@gamil.com", "qazxsw")
             user?.reauthenticate(credential)?.addOnCompleteListener {
-                user?.updateEmail("abcde@gmail.com")?.addOnCompleteListener { task ->
+                user?.updateEmail("def@gmail.com")?.addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Toast.makeText(this@MainActivity, "Email 修改成功", Toast.LENGTH_SHORT).show()
                     } else {
@@ -104,8 +98,7 @@ class MainActivity : AppCompatActivity() {
             AlertDialog.Builder(this@MainActivity)
                     .setView(item)
                     .setPositiveButton(R.string.ok) { _, _ ->
-                        val displayName = item.findViewById<View>(R.id.new_pw) as EditText
-                        val newPassword = displayName.text.toString()
+                        val newPassword = new_pw.text.toString()
                         user?.updatePassword(newPassword)?.addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 Toast.makeText(this@MainActivity, "Password 修改成功", Toast.LENGTH_SHORT).show()

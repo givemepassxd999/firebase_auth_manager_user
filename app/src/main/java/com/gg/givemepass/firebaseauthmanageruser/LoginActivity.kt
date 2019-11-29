@@ -2,7 +2,6 @@ package com.gg.givemepass.firebaseauthmanageruser
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -24,11 +23,11 @@ class LoginActivity : AppCompatActivity() {
         login_button.setOnClickListener(View.OnClickListener {
             val account = account_edit.text.toString()
             val password = password_edit.text.toString()
-            if (TextUtils.isEmpty(account)) {
+            if (account.isNotEmpty()) {
                 account_layout.error = getString(R.string.plz_input_accout)
                 return@OnClickListener
             }
-            if (TextUtils.isEmpty(password)) {
+            if (password.isNotEmpty()) {
                 password_layout.error = getString(R.string.plz_input_pw)
                 return@OnClickListener
             }
@@ -43,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
                             startActivity(intent)
                             finish()
                         } else {
-                            Toast.makeText(this@LoginActivity, task.exception!!.message, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@LoginActivity, task.exception?.message, Toast.LENGTH_SHORT).show()
                         }
                     }
         })

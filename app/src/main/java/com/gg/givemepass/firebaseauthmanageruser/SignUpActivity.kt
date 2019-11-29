@@ -44,7 +44,7 @@ class SignUpActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 } else {
-                    Toast.makeText(this@SignUpActivity, task.exception!!.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@SignUpActivity, task.exception?.message, Toast.LENGTH_SHORT).show()
                 }
             }
         })
