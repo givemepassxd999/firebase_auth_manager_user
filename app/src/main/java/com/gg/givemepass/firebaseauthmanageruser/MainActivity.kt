@@ -11,11 +11,9 @@ import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
-import com.sun.org.apache.xml.internal.security.algorithms.JCEMapper.getProviderId
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.change_pw_layout.*
 import kotlinx.android.synthetic.main.update_data_layout.*
-import sun.jvm.hotspot.utilities.IntArray
 
 
 
